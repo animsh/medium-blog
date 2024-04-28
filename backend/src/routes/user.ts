@@ -19,10 +19,11 @@ const userRouter = new Hono<{
 
 userRouter.post("/signup", async (c) => {
   try {
+    console.log(c.env.DATABASE_URL)
     const prisma = new PrismaClient({
       datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
-
+    console.log(prisma)
     const body = await c.req.json();
 
     const parsed = await signupUserSchema.safeParseAsync(body);
